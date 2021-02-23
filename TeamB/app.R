@@ -4,6 +4,19 @@ library(tidyverse)
 library(dplyr)
 library(leaflet)
 library(htmlwidgets)
+library(ggplot2)
+library(ggthemes)
+
+
+CountryVaccinations <- read_excel("~/Data Science with R (SOFTANBEES)/Country Vaccines/CountryVaccinations.xlsx")
+View(CountryVaccinations)
+
+
+
+dailyVaccinations <- read.csv("~/Data Science with R (SOFTANBEES)/Country Vaccines/Daily Vaccinations/dailyVaccinations.csv")
+View(dailyVaccinations)
+
+
 
 
 ui <- shinyUI(
@@ -52,8 +65,61 @@ ui <- shinyUI(
                                   
                                   
                               )),
-                          tabItem(tabName="second",h3("Line Chart showing Daily Vaccination done on different Dates in Various Countries")),
-                          tabItem(tabName="third",h3("Prediction of Total Amount of Vaccination at March 30,2021 with current rate of Daily Vaccination")),
+                          
+                           tabItem(tabName="second",h3("VIEW OF ANALYSIS DONE ON DAILY VACCINATION AMOUNT IN DIFFERENT COUNTRIES",
+                                                   fluidRow(
+                                                       box(solidHeader = F,background = "blue",
+                                                           selectInput("con",
+                                                                       "Select the Name of Country:",
+                                                                       choices=unique(dailyVaccinations$country))
+                                                           
+                                                           
+                                                           
+                                                           
+                                                       ),
+                                                       
+                                                       
+                                                       
+                                                    
+                                                       
+                                                       
+                                                       
+                                                       box(solidHeader=F,background = "green",plotOutput("lineplot"),width = 12)
+                                                       
+                                            
+                                                           
+                                                           
+                                                       
+                                                       
+                                                       
+                                                       
+                                                       
+                                                   )   
+                                                      
+                                                      
+                                                      
+                                                      )),
+                       
+
+                          
+                          
+                          
+                          
+                          
+                          
+                          
+                          
+                          
+                          
+                          
+                          
+                          
+                          
+                          
+                          
+                          
+                          
+                           tabItem(tabName="third",h3("Prediction of Total Amount of Vaccination at March 30,2021 with current rate of Daily Vaccination")),
                           tabItem(tabName = "two"),
                           tabItem(tabName="fourth",h3("Finding Features that are Correlated with Confirm Cases")),
                           tabItem(tabName="fifth",h3("Searching which type of Foods are Responsible for what kind of Consequences"))
@@ -65,6 +131,30 @@ ui <- shinyUI(
 
 
 server <- function(input,output){
+    
+     output$lineplot <- renderPlot({
+        countryFilter <- subset(dailyVaccinations,dailyVaccinations$country==input$con)
+        
+    
+        
+        
+        
+        ggplot(countryFilter,aes(x=date))+geom_line(aes(y=daily_vaccinations),group=1,color="blue",size=2,alpha=1)+theme_grey()+theme(axis.text.x = element_text(angle = 55,hjust = 1))+theme(axis.text.y = element_text(angle = 40,vjust = 0))+labs(title=paste("Line Chart Showing Daily Vaccination Done On Different Dates In", input$con))+labs(x="Dates",y="Daily Vaccination Amount")+geom_line(aes(y=daily_vaccinations_per_million),group=2,color="red",size=2,alpha=1)+geom_point(aes(y=daily_vaccinations),color="yellow")+geom_point(aes(y=daily_vaccinations_per_million),color="black")+labs(caption = "INDEX: Blue line(Yellow dots)=Daily Vaccinations / Red line(Black dots)=Daily Vaccinations Per Million")
+    
+    })
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     output$data <- renderTable({
         countryFilter <- subset(CountryVaccinations,CountryVaccinations$country==input$name)
