@@ -21,8 +21,7 @@ vaccination_1.3 <- read.csv("~/Data Science with R (SOFTANBEES)/Country Vaccinat
 CountryVaccinations <- read_excel("~/Data Science with R (SOFTANBEES)/Country Vaccines/CountryVaccinations.xlsx")
 
 
-
-
+data_description <- read.csv("~/Data Science with R (SOFTANBEES)/Covid 19 Healthy Diet/Supply_Food_Data_Descriptions.csv")
 
 
 
@@ -91,7 +90,7 @@ ui <- shinyUI(
                   
                   dashboardBody(
                       tabItems(
-                          tabItem(tabName = "one",tags$h2("PROGRESS OF COVID-19 VACCINATION",align = "center") , img(src="image1.jpg",height = 500,width = 900,align = "center")),
+                          tabItem(tabName = "one",tags$h2("PROGRESS OF COVID-19 VACCINATION",align = "center") , img(src="image1.jpg",height = 600,width = 1250,align = "center")),
                           tabItem(
                               tabName="first",h3("MAP VIEW FOR NUMBER OF PEOPLE VACCINATED & NAME OF THE VACCINES DISTRIBUTED BY THE COUNTRIES AROUND THE GLOBE"),
                               fluidRow(
@@ -100,13 +99,13 @@ ui <- shinyUI(
                                       selectInput("name",
                                                   h4("Select the Name of Country:"), 
                                                   choices= unique(CountryVaccinations$country))
-                                   ),
+                                  ),
                                   
-                                  box(solidHeader = TRUE,background = "olive" ,h4("Table Showing Vaccination Information Of Selected Country"),tableOutput("data"),width=8),
+                                  box(solidHeader = TRUE,background = "olive" ,h4("Table Showing Vaccination Information Of Selected Country"),tableOutput("data"),width=10),
                                   
                                   box(background = "orange" ,width = 12,tabsetPanel(  
                                       tabPanel("Geographical Distribution Of Vaccines", leafletOutput("people_vaccinated"))))
-                                    )),
+                              )),
                           
                           
                           
@@ -114,23 +113,23 @@ ui <- shinyUI(
                           
                           
                           tabItem(tabName="second",h3("VIEW OF ANALYSIS DONE ON DAILY VACCINATION AMOUNT IN DIFFERENT COUNTRIES"),
-                                                      fluidRow(
-                                                          box(solidHeader = F,background = "blue",
-                                                              selectInput("con",
-                                                                          h4("Select the Name of Country:"),
-                                                                          choices=unique(dailyVaccinations$country))
-                                                     ),
-                                                          
-                                                    box(solidHeader=F,background = "green",plotOutput("lineplot"),width = 12)
-                                                          
-                                                   )   
-                                                 ),
+                                  fluidRow(
+                                      box(solidHeader = F,background = "blue",
+                                          selectInput("con",
+                                                      h4("Select the Name of Country:"),
+                                                      choices=unique(dailyVaccinations$country))
+                                      ),
+                                      
+                                      box(solidHeader=F,background = "green",plotOutput("lineplot"),width = 12)
+                                      
+                                  )   
+                          ),
                           
                           
                           
-                               
                           
-                               tabItem(tabName="third",h3("PREDICTION OF TOTAL AMOUNT OF VACCINATION WITH MARCH 30,2021 BY THE CURRENT RATE OF DAILY VACCINATION"),
+                          
+                          tabItem(tabName="third",h3("PREDICTION OF TOTAL AMOUNT OF VACCINATION WITH MARCH 30,2021 BY THE CURRENT RATE OF DAILY VACCINATION"),
                                   fluidRow(
                                       box(background = "navy", solidHeader = TRUE,
                                           selectInput("choice",
@@ -140,11 +139,11 @@ ui <- shinyUI(
                                           dateInput("date",h4("Choose the Prediction Date"), value = "2021-03-30")
                                       ),
                                       box(background = "red" ,width = 12,tabsetPanel(
-                                          tabPanel(" According To The Current Rate Of Daily Vaccination Predicting How Many Will Be Vaccinated In Total With March 30, 2021", plotOutput("arimaplot")))),
+                                          tabPanel(" According To The Current Rate Of Daily Vaccination Predicting How Many Will Be Vaccinated In Upcoming Days", plotOutput("arimaplot")))),
                                       box(background = "aqua" , width=8 , tabsetPanel(
                                           tabPanel(textOutput("pred_1.3")))   
-                                      
-                                  )
+                                          
+                                      )
                                   )),
                           
                           
@@ -152,8 +151,8 @@ ui <- shinyUI(
                           
                           
                           
-                          tabItem(tabName = "two",tags$h2("COVID-19 HEALTHY DIET",align = "center") , img(src="image2.jpg",height = 500,width = 900, align = "center")),
-                         
+                          tabItem(tabName = "two",tags$h2("COVID-19 HEALTHY DIET",align = "center") , img(src="image2.jpg",height = 600,width = 1250, align = "center")),
+                          
                           
                           
                           
@@ -174,21 +173,21 @@ ui <- shinyUI(
                                       ),
                                       
                                       
-                                     box(background = "navy",h4("Table Showing Correlation Coefficient For Selected Feature From Protein Diet & Confirmed Cases"),tableOutput("datatable")),
-                                     
-                                     
-                                     
-                                     box(background = "red",h4("Table Showing Correlation Coefficient For Selected Feature From Fat Diet & Confirmed Cases"),tableOutput("datatableA")),  
-                                         
-                                         
-                                     box(background = "blue",h4("Table Showing Correlation Coefficient For Selected Feature From Food Diet & Confirmed Cases"),tableOutput("datatableB")), 
-                                     
-                                          
-                                     box(background = "black",width = 12,h3("Correlogram"),tabsetPanel(type='tabs',tabPanel("Protein Diet",plotOutput("corplot")),tabPanel("Fat Diet",plotOutput("corplot1")),tabPanel("Food Diet",plotOutput("corplot2"))
-                                                                                                      
-                                                                                                      
-                                       ))
-                                       )),
+                                      box(background = "navy",h4("Table Showing Correlation Coefficient For Selected Feature From Protein Diet & Confirmed Cases"),tableOutput("datatable")),
+                                      
+                                      
+                                      
+                                      box(background = "red",h4("Table Showing Correlation Coefficient For Selected Feature From Fat Diet & Confirmed Cases"),tableOutput("datatableA")),  
+                                      
+                                      
+                                      box(background = "blue",h4("Table Showing Correlation Coefficient For Selected Feature From Food Diet & Confirmed Cases"),tableOutput("datatableB")), 
+                                      
+                                      
+                                      box(background = "black",width = 12,h3("Correlogram"),tabsetPanel(type='tabs',tabPanel("Protein Diet",plotOutput("corplot")),tabPanel("Fat Diet",plotOutput("corplot1")),tabPanel("Food Diet",plotOutput("corplot2"))
+                                                                                                        
+                                                                                                        
+                                      ))
+                                  )),
                           
                           
                           
@@ -202,10 +201,10 @@ ui <- shinyUI(
                                                       colnames(diet[,25:30]))),
                                       box(background = "red" ,width = 12,paste(" Following Type Of Foods(Multiple Foods) Are Responsible For The Consequence Along With The Correlation Coefficient")),
                                       box(background = "navy" , width=8 ,h3("Correlation Table"),tableOutput("cor_table"))  
-                                  
-                                  
-                           )
-                      )))))
+                                      
+                                      
+                                  )
+                          )))))
 
 
 
@@ -218,7 +217,7 @@ server <- function(input,output){
     
     #Server part for 1.1
     
-        output$data <- renderTable({
+    output$data <- renderTable({
         countryFilter <- subset(CountryVaccinations,CountryVaccinations$country==input$name)
         
         
@@ -232,7 +231,7 @@ server <- function(input,output){
         leaflet()%>%addProviderTiles(provider = "Esri.NatGeoWorldMap")%>%addCircleMarkers(data=CountryVaccinations,lat = ~lat,lng = ~long,radius = ~6,popup = ~popup_info,color = ~pal(people_vaccinated),stroke = FALSE,fillOpacity = 1.5)%>% addLegend(position = "bottomright",pal = pal,values = CountryVaccinations$people_vaccinated, title = "AMOUNT OF PEOPLE VACCINATED" , opacity = 1)
     })
     
-     
+    
     
     
     
@@ -240,7 +239,7 @@ server <- function(input,output){
     #Server part for 1.2
     
     
-        output$lineplot <- renderPlot({
+    output$lineplot <- renderPlot({
         countryFilter <- subset(dailyVaccinations,dailyVaccinations$country==input$con)
         
         
@@ -251,12 +250,12 @@ server <- function(input,output){
         
     })
     
-        
     
-        
+    
+    
     #Server part for 1.3
-     
-        output$arimaplot<-renderPlot({
+    
+    output$arimaplot<-renderPlot({
         vaccination_1.3<- subset(vaccination_1.3,vaccination_1.3$country==input$choice)
         vaccination_1.3 <- na.omit(vaccination_1.3[c("country","date", "daily_vaccinations")])
         vaccination_1.3$date <- as.Date (vaccination_1.3$date,format="%Y-%m-%d")
@@ -275,12 +274,12 @@ server <- function(input,output){
         )
         #accuracy(fit)#mape=8.77,92%accurate
     })
-        
     
     
-  
     
- #Server part for 2.1  
+    
+    
+    #Server part for 2.1  
     
     output$datatable <- renderTable({
         tablefilter= tac[25,which(input$features==colnames(tac))]
@@ -366,22 +365,30 @@ server <- function(input,output){
     })
     
     
-   
+    
+    
+    #Server part for 2.2
+    
+    output$cor_table<- renderTable({
+        effect=diet[,which(input$choices==colnames(diet))]
+        cr=cor(diet[,2:24],effect)
+        cr=subset(melt(cr),value>0.3)
+        cr=cr[,-2]
+        cr
+        cr=rename(cr,c("Categories"="Var1","Correlation Coefficient"="value"))
         
-       #Server part for 2.2
-            
-            output$cor_table<- renderTable({
-            effect=diet[,which(input$choices==colnames(diet))]
-            cr=cor(diet[,2:24],effect)
-            cr=subset(melt(cr),value>0.3)
-            cr=cr[,-2]
-            cr
-            rename(cr,c("Types Of Food"="Var1","Correlation Coefficient"="value"))
+        diet=diet[,-1]
+        diet=diet[,order(colnames(diet[,1:23]))]
+        data_description[,-2]= colnames(diet[,1:23])
+        data_description[,1]= as.factor(data_description[,1])
+        food_types= left_join(data_description,cr,by="Categories")
+        food_types= na.omit(food_types)
+        food_types
         
-            
-        })
-        }
+        
+        
+    })
+}
 
 # Run the application 
 shinyApp(ui = ui, server = server)
-
